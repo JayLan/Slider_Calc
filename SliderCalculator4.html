@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            padding: 20px;
+            max-width: 650px;
+            border: 1px solid rgb(190, 190, 190)
+        }
+
+        h1{
+            margin-top: 10px;
+        }
+
+        #display {
+            font-size: 1.8rem;
+            color: greenyellow;
+            margin-bottom: 20px;
+            margin-top: 0px;
+            width: 100%;
+            height: 50px;
+            background-color: #2f2f2f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #8d8d8d;
+            border-radius: 8px;
+        }
+
+        .sliders {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 1px solid rgb(206, 206, 206);
+            padding: 20px;
+        }
+
+        .slider-container {
+            margin: 0 10px;
+            
+        }
+
+        .slider-container label {
+            font-family: Tahoma;
+            color: #616161;
+            display: block;
+            font-size: .7rem;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1rem;
+        }
+
+        .operator-buttons {
+            margin-top: 20px;
+        }
+
+        .warning {
+            color: red;
+            font-size: 1rem;
+        }
+
+        #instructions {
+            margin-top: 30px;
+            font-size: 1rem;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .permanent-marker-regular {
+            font-family: "Permanent Marker", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .app-title{
+            font-size: 3rem;
+            margin-bottom: 5px;
+            color: #ed1dc7;
+        }
+
+        .Note{
+            color: rgb(204, 67, 67);
+        }
+
+        .operator-buttons button{
+            color: white;
+            height: 50px;
+            width: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: rgb(43, 226, 165);
+            border: solid 2px rgb(41, 200, 179);
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .calc-btn{
+            color: white;
+            background-color: blueviolet;
+            border: solid 2px rgb(89, 23, 151);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .set{
+            color: white;
+            background-color: rgb(73, 176, 235);
+            border: solid 2px rgb(35, 156, 187);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .reset{
+            color: white;
+            background-color: rgb(46, 233, 227);
+            border: solid 2px rgb(48, 214, 211);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 class="permanent-marker-regular app-title">Slider Calculator</h1>
+
+    <div id="display">0</div>
+
+    <div class="sliders">
+        <div class="slider-container">
+            <label for="slider1">Digit 1</label>
+            <input type="range" min="0" max="9" value="0" id="slider1" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider2">Digit 2</label>
+            <input type="range" min="0" max="9" value="0" id="slider2" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider3">Digit 3</label>
+            <input type="range" min="0" max="9" value="0" id="slider3" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider4">Digit 4</label>
+            <input type="range" min="0" max="9" value="0" id="slider4" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider5">Digit 5</label>
+            <input type="range" min="0" max="9" value="0" id="slider5" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider6">Digit 6</label>
+            <input type="range" min="0" max="9" value="0" id="slider6" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider7">Digit 7</label>
+            <input type="range" min="0" max="9" value="0" id="slider7" oninput="updateDisplay()">
+        </div>
+        <div class="slider-container">
+            <label for="slider8">Digit 8</label>
+            <input type="range" min="0" max="9" value="0" id="slider8" oninput="updateDisplay()">
+        </div>
+    </div>
+
+    <button class="set" onclick="setOperand()">Set Operand</button>
+    <button class="reset" onclick="resetCalculator()">Reset</button>
+
+    <div class="operator-buttons">
+        <button onclick="setOperator('+')">+</button>
+        <button onclick="setOperator('-')">-</button>
+        <button onclick="setOperator('*')">*</button>
+        <button onclick="setOperator('/')">/</button>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate</button>
+
+    <div id="warning" class="warning"></div>
+
+    <div id="instructions">
+        <h3>How to Use the Calculator</h3>
+        <ol>
+            <li>&nbsp;Use the sliders to set each digit of the number.</li>
+            <li>&nbsp;Click "Set Operand" to save the first operand.</li>
+            <li>&nbsp;Choose an operator (+, -, *, /) by clicking the corresponding button.</li>
+            <li>&nbsp;Use the sliders again to set the second operand.</li>
+            <li>&nbsp;Click "Set Operand" again to save the second operand.</li>
+            <li>&nbsp;Click "Calculate" to see the result of the operation.</li>
+            <li>&nbsp;If you need to start over, click "Reset" to clear the display and start fresh.</li>
+            <li class="Note">&nbsp;Note: Division by zero will result in an error message.</li>
+        </ol>
+    </div>
+
+    <script>
+        let operand1 = null;
+        let operand2 = null;
+        let operator = "";
+        let isOperand1Set = false;
+
+        // Update the display in real-time as the sliders are moved
+        function updateDisplay() {
+            let currentValue = getCurrentSliderValue();
+            document.getElementById("display").innerText = currentValue;
+        }
+
+        // Get current value from sliders
+        function getCurrentSliderValue() {
+            let value = "";
+            for (let i = 1; i <= 8; i++) {
+                value += document.getElementById("slider" + i).value;
+            }
+            return parseInt(value, 10);
+        }
+
+        // Set operand based on the slider values
+        function setOperand() {
+            const currentValue = getCurrentSliderValue();
+
+            if (!isOperand1Set) {
+                operand1 = currentValue;
+                isOperand1Set = true;
+                document.getElementById("display").innerText = `Operand 1: ${operand1}`;
+            } else {
+                operand2 = currentValue;
+                document.getElementById("display").innerText = `Operand 2: ${operand2}`;
+            }
+        }
+
+        // Set the operator
+        function setOperator(op) {
+            if (isOperand1Set) {
+                operator = op;
+                document.getElementById("display").innerText = `Operator: ${operator}`;
+            } else {
+                document.getElementById("warning").innerText = "Set Operand 1 first.";
+            }
+        }
+
+        // Perform the calculation
+        function calculate() {
+            if (operand1 === null || operand2 === null || !operator) {
+                document.getElementById("warning").innerText = "Set both operands and an operator.";
+                return;
+            }
+
+            document.getElementById("warning").innerText = "";
+
+            let result;
+            switch (operator) {
+                case "+":
+                    result = operand1 + operand2;
+                    break;
+                case "-":
+                    result = operand1 - operand2;
+                    break;
+                case "*":
+                    result = operand1 * operand2;
+                    break;
+                case "/":
+                    if (operand2 === 0) {
+                        document.getElementById("warning").innerText = "Error: Division by zero.";
+                        return;
+                    }
+                    result = operand1 / operand2;
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+
+            document.getElementById("display").innerText = `Result: ${result}`;
+        }
+
+        // Reset the calculator for new calculations
+        function resetCalculator() {
+            operand1 = null;
+            operand2 = null;
+            operator = "";
+            isOperand1Set = false;
+            document.getElementById("display").innerText = "0";
+            document.getElementById("warning").innerText = "";
+
+            // Reset sliders to 0
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById("slider" + i).value = 0;
+            }
+        }
+    </script>
+</body>
+</html>
+
